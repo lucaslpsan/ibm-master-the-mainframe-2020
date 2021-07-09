@@ -1,0 +1,16 @@
+---
+  - hosts: mtm    
+    environment:
+      "{{default_environment}}"
+        
+    collections:
+      - ibm.ibm_zos_core
+
+    tasks: 
+      - name: Convert file encoding from a sequential data set (extended) to a
+          partitioned data set (extended) member
+        zos_encode:
+          src: MTM2020.PUBLIC.INPUT(ASCMSG)
+          dest: Z11657.WORK(EBCMSG)
+          from_encoding: ISO8859-1
+          to_encoding: IBM-1047
