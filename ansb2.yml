@@ -1,0 +1,20 @@
+---
+  - hosts: mtm
+    environment:
+      "{{default_environment}}"
+        
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: Copy PDS member to file
+        shell: cp  "//'{{ ansible_user }}.WORK(EBCMSG)'"  ansb2out
+        register: result
+
+      - name: Append msg
+        shell: echo 'Greetings from Brazil, Z11657, 2021' >> ansb2out
+        register: result
+
+      - name: Show Response
+        debug:
+          msg: "{{ result.stdout_lines }}"
